@@ -116,5 +116,10 @@ class MemoryMemberRepositoryTest {
 
     @Test
     fun delete() {
+        assertTrue(repository.delete(1UL))
+        assertFalse(repository.delete(1UL))
+        assertTrue(repository.delete(2UL))
+        assertFalse(repository.delete(2UL))
+        assertFalse(repository.delete(3UL))
     }
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.assertThrows
 
 class MemoryMemberRepositoryTest {
 
@@ -49,37 +50,30 @@ class MemoryMemberRepositoryTest {
         val foundMember2 = repository.findById(2UL)
 
         assertNotNull(foundMember1)
-        if (foundMember1 != null) {
-            assertEquals(1UL, foundMember1.id)
-            assertEquals("홍길동", foundMember1.name)
-        }
+        assertEquals(1UL, foundMember1?.id)
+        assertEquals("홍길동", foundMember1?.name)
 
         assertNotNull(foundMember2)
-        if (foundMember2 != null) {
-            assertEquals(2UL, foundMember2.id)
-            assertEquals("홍길은", foundMember2.name)
-        }
+        assertEquals(2UL, foundMember2?.id)
+        assertEquals("홍길은", foundMember2?.name)
     }
 
     @Test
-    fun findByName() {
+    fun testFindByName() {
         val foundMember1 = repository.findByName("홍길동")
         val foundMember2 = repository.findByName("홍길은")
 
         assertNotNull(foundMember1)
-        if (foundMember1 != null) {
-            assertEquals(1UL, foundMember1.id)
-            assertEquals("홍길동", foundMember1.name)
-        }
+        assertEquals(1UL, foundMember1?.id)
+        assertEquals("홍길동", foundMember1?.name)
+
         assertNotNull(foundMember2)
-        if (foundMember2 != null) {
-            assertEquals(2UL, foundMember2.id)
-            assertEquals("홍길은", foundMember2.name)
-        }
+        assertEquals(2UL, foundMember2?.id)
+        assertEquals("홍길은", foundMember2?.name)
     }
 
     @Test
-    fun findAll() {
+    fun testFindAll() {
         val members = repository.findAll()
 
         assertEquals(2, members.size)
@@ -90,7 +84,35 @@ class MemoryMemberRepositoryTest {
     }
 
     @Test
-    fun update() {
+    fun testUpdate() {
+        val memberId = 1UL
+        val member = repository.findById(memberId)
+
+        if (member == null) {
+            throw Exception("멤버가 존재하지 않습니다.")
+        } else {
+            member.name = "홍길금"
+        }
+
+        repository.update(member)
+
+        val updatedMember = repository.findById(memberId)
+        assertNotNull(updatedMember)
+        assertEquals("홍길금", updatedMember?.name)
+    }
+
+    @Test
+    fun testUpdate_멤버ID가_null() {
+        val member = Member(id=null, name="홍길동")
+
+        assertThrows(IllegalStateException::class.java) { repository.update(member) }
+    }
+
+    @Test
+    fun testUpdate_존재하지_않는_멤버ID() {
+        val member = Member(id=4UL, name="홍길동")
+
+        assertThrows(IllegalArgumentException::class.java) { repository.update(member) }
     }
 
     @Test

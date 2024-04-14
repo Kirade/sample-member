@@ -9,7 +9,8 @@ class MemoryMemberRepository : MemberRepository {
     }
 
     override fun create(member: Member): Member {
-        store[++sequence] = member
+        member.id = ++sequence
+        store[sequence] = member
         return member
     }
 
@@ -32,8 +33,9 @@ class MemoryMemberRepository : MemberRepository {
     }
 
     override fun update(member: Member): Member {
+        val memberId = member.id ?: throw IllegalStateException("Member without ID cannot be updated")
         if (store.containsKey(member.id)) {
-            store[member.id] = member
+            store[memberId] = member
         }
         else {
             throw IllegalArgumentException("Member with id ${member.id} not found")

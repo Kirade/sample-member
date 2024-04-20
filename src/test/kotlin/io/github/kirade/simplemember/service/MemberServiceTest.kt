@@ -2,7 +2,6 @@ package io.github.kirade.simplemember.service
 
 import io.github.kirade.simplemember.domain.Member
 import io.github.kirade.simplemember.repository.MemberRepository
-import io.github.kirade.simplemember.repository.MemoryMemberRepository
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*

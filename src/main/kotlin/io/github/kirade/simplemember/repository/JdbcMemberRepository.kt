@@ -124,7 +124,7 @@ class JdbcMemberRepository (private val dataSource: DataSource): MemberRepositor
 
         dataSource.connection.use { connection ->
             connection.prepareStatement(sql).use { preparedStatement ->
-                preparedStatement.executeQuery()
+                preparedStatement.executeUpdate()
             }
         }
     }

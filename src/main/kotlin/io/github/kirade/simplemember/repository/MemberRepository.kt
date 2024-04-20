@@ -9,4 +9,5 @@ interface MemberRepository {
     fun findAll(): List<Member>
     fun update(member: Member): Member
     fun delete(id: ULong): Boolean
+    fun flush()
 }

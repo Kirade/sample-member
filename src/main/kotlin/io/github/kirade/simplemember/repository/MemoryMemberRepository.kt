@@ -46,4 +46,8 @@ class MemoryMemberRepository : MemberRepository {
     override fun delete(id: ULong): Boolean {
         return store.remove(id) != null
     }
+
+    override fun flush() {
+        store.clear()
+    }
 }

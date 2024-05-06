@@ -1,6 +1,6 @@
 package io.github.kirade.simplemember
 
-import io.github.kirade.simplemember.repository.JdbcMemberRepository
+import io.github.kirade.simplemember.repository.JdbcTemplateMemberRepository
 import io.github.kirade.simplemember.repository.MemberRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
@@ -15,5 +15,5 @@ class SpringConfig {
     private lateinit var dataSource: DataSource
 
     @Bean
-    fun MemberRepository() : MemberRepository = JdbcMemberRepository(dataSource)
+    fun MemberRepository() : MemberRepository = JdbcTemplateMemberRepository(dataSource)
 }

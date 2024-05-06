@@ -21,7 +21,7 @@ class JdbcMemberRepository (private val dataSource: DataSource): MemberRepositor
                 prepareStatement.executeUpdate()
                 prepareStatement.generatedKeys.use { resultSet ->
                     if (resultSet.next()) {
-                        member.id = resultSet.getLong(1).toULong()
+                        member.id = resultSet.getLong(1)
                     } else {
                         throw SQLException("No generated keys found")
                     }
@@ -31,7 +31,7 @@ class JdbcMemberRepository (private val dataSource: DataSource): MemberRepositor
         }
     }
 
-    override fun findById(id: ULong): Member? {
+    override fun findById(id: Long): Member? {
         val sql = "SELECT * FROM member WHERE id = ?"
 
         dataSource.connection.use { connection ->
@@ -40,7 +40,7 @@ class JdbcMemberRepository (private val dataSource: DataSource): MemberRepositor
                 preparedStatement.executeQuery().use { resultSet ->
                     if (resultSet.next()) {
                         return Member(
-                            resultSet.getLong("id").toULong(),
+                            resultSet.getLong("id"),
                             resultSet.getString("name"),
                         )
                     } else {
@@ -60,7 +60,7 @@ class JdbcMemberRepository (private val dataSource: DataSource): MemberRepositor
                 preparedStatement.executeQuery().use { resultSet ->
                     if (resultSet.next()) {
                         return Member(
-                            resultSet.getLong("id").toULong(),
+                            resultSet.getLong("id"),
                             resultSet.getString("name"),
                         )
                     } else {
@@ -80,7 +80,7 @@ class JdbcMemberRepository (private val dataSource: DataSource): MemberRepositor
                 preparedStatement.executeQuery().use { resultSet ->
                     while (resultSet.next()) {
                         val member = Member(
-                            resultSet.getLong("id").toULong(),
+                            resultSet.getLong("id"),
                             resultSet.getString("name"),
                         )
                         memberList.add(member)
@@ -108,7 +108,7 @@ class JdbcMemberRepository (private val dataSource: DataSource): MemberRepositor
         }
     }
 
-    override fun delete(id: ULong): Boolean {
+    override fun delete(id: Long): Boolean {
         val sql = "DELETE FROM member WHERE id = ?"
 
         dataSource.connection.use { connection ->

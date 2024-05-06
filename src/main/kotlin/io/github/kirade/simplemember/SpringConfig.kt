@@ -1,19 +1,19 @@
 package io.github.kirade.simplemember
 
-import io.github.kirade.simplemember.repository.JdbcTemplateMemberRepository
+import io.github.kirade.simplemember.repository.JpaMemberRepository
 import io.github.kirade.simplemember.repository.MemberRepository
+import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import javax.sql.DataSource
 
 
 @Configuration
 class SpringConfig {
 
     @Autowired
-    private lateinit var dataSource: DataSource
+    private lateinit var em: EntityManager
 
     @Bean
-    fun MemberRepository() : MemberRepository = JdbcTemplateMemberRepository(dataSource)
+    fun MemberRepository() : MemberRepository = JpaMemberRepository(em)
 }

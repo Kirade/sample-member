@@ -2,6 +2,7 @@ package io.github.kirade.simplemember.service
 
 import io.github.kirade.simplemember.domain.Member
 import io.github.kirade.simplemember.repository.MemberRepository
+import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
+@Transactional
 class MemberServiceTest @Autowired constructor(val repository: MemberRepository) {
     val service: MemberService = MemberService(repository)
 

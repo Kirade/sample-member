@@ -4,8 +4,8 @@ import io.github.kirade.simplemember.domain.Member
 
 class MemoryMemberRepository : MemberRepository {
     companion object Memory {
-        val store: MutableMap<ULong, Member> = mutableMapOf()
-        var sequence: ULong = ULong.MIN_VALUE
+        val store: MutableMap<Long, Member> = mutableMapOf()
+        var sequence: Long = Long.MIN_VALUE
     }
 
     override fun create(member: Member): Member {
@@ -14,7 +14,7 @@ class MemoryMemberRepository : MemberRepository {
         return member
     }
 
-    override fun findById(id: ULong): Member? {
+    override fun findById(id: Long): Member? {
         return store[id]
     }
 
@@ -43,7 +43,7 @@ class MemoryMemberRepository : MemberRepository {
         return member
     }
 
-    override fun delete(id: ULong): Boolean {
+    override fun delete(id: Long): Boolean {
         return store.remove(id) != null
     }
 

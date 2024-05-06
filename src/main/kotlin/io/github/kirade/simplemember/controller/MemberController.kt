@@ -14,7 +14,7 @@ class MemberController (private val service: MemberService) {
     }
 
     @GetMapping("/{memberId}")
-    fun getMember(@PathVariable("memberId") memberId: ULong): Member? {
+    fun getMember(@PathVariable("memberId") memberId: Long): Member? {
         return service.getMember(memberId)
     }
 
@@ -24,12 +24,12 @@ class MemberController (private val service: MemberService) {
     }
 
     @PatchMapping("/{memberId}")
-    fun updateMember(@PathVariable("memberId") memberId: ULong, @RequestBody member: Member): Member {
+    fun updateMember(@PathVariable("memberId") memberId: Long, @RequestBody member: Member): Member {
         return service.updateMember(memberId, member)
     }
 
     @DeleteMapping("/{memberId}")
-    fun deleteMember(@PathVariable("memberId") memberId: ULong): Boolean {
+    fun deleteMember(@PathVariable("memberId") memberId: Long): Boolean {
         return service.deleteMember(memberId)
     }
 }

@@ -16,9 +16,9 @@ class MemoryMemberRepositoryTest {
         MemoryMemberRepository.store.clear()
 
         // Default Test Data
-        MemoryMemberRepository.store[1UL] = Member(1UL, "홍길동")
-        MemoryMemberRepository.store[2UL] = Member(2UL, "홍길은")
-        MemoryMemberRepository.sequence = 2UL
+        MemoryMemberRepository.store[1L] = Member(1L, "홍길동")
+        MemoryMemberRepository.store[2L] = Member(2L, "홍길은")
+        MemoryMemberRepository.sequence = 2L
     }
 
     @Test
@@ -28,7 +28,7 @@ class MemoryMemberRepositoryTest {
         val createdMember = repository.create(member)
 
         assertEquals(member, createdMember)
-        assertEquals(3UL, createdMember.id)
+        assertEquals(3L, createdMember.id)
         assertEquals("홍길금", createdMember.name)
     }
 
@@ -39,21 +39,21 @@ class MemoryMemberRepositoryTest {
         val createdMember = repository.create(member)
 
         assertEquals(member, createdMember)
-        assertEquals(3UL, createdMember.id)
+        assertEquals(3L, createdMember.id)
         assertEquals("홍길동", createdMember.name)
     }
 
     @Test
     fun testFindById() {
-        val foundMember1 = repository.findById(1UL)
-        val foundMember2 = repository.findById(2UL)
+        val foundMember1 = repository.findById(1L)
+        val foundMember2 = repository.findById(2L)
 
         assertNotNull(foundMember1)
-        assertEquals(1UL, foundMember1?.id)
+        assertEquals(1L, foundMember1?.id)
         assertEquals("홍길동", foundMember1?.name)
 
         assertNotNull(foundMember2)
-        assertEquals(2UL, foundMember2?.id)
+        assertEquals(2L, foundMember2?.id)
         assertEquals("홍길은", foundMember2?.name)
     }
 
@@ -63,11 +63,11 @@ class MemoryMemberRepositoryTest {
         val foundMember2 = repository.findByName("홍길은")
 
         assertNotNull(foundMember1)
-        assertEquals(1UL, foundMember1?.id)
+        assertEquals(1L, foundMember1?.id)
         assertEquals("홍길동", foundMember1?.name)
 
         assertNotNull(foundMember2)
-        assertEquals(2UL, foundMember2?.id)
+        assertEquals(2L, foundMember2?.id)
         assertEquals("홍길은", foundMember2?.name)
     }
 
@@ -76,15 +76,15 @@ class MemoryMemberRepositoryTest {
         val members = repository.findAll()
 
         assertEquals(2, members.size)
-        assertEquals(members[0].id, 1UL)
+        assertEquals(members[0].id, 1L)
         assertEquals(members[0].name, "홍길동")
-        assertEquals(members[1].id, 2UL)
+        assertEquals(members[1].id, 2L)
         assertEquals(members[1].name, "홍길은")
     }
 
     @Test
     fun testUpdate() {
-        val memberId = 1UL
+        val memberId = 1L
         val member = repository.findById(memberId)
 
         if (member == null) {
@@ -109,17 +109,17 @@ class MemoryMemberRepositoryTest {
 
     @Test
     fun testUpdate_존재하지_않는_멤버ID() {
-        val member = Member(id=4UL, name="홍길동")
+        val member = Member(id=4L, name="홍길동")
 
         assertThrows(IllegalArgumentException::class.java) { repository.update(member) }
     }
 
     @Test
     fun delete() {
-        assertTrue(repository.delete(1UL))
-        assertFalse(repository.delete(1UL))
-        assertTrue(repository.delete(2UL))
-        assertFalse(repository.delete(2UL))
-        assertFalse(repository.delete(3UL))
+        assertTrue(repository.delete(1L))
+        assertFalse(repository.delete(1L))
+        assertTrue(repository.delete(2L))
+        assertFalse(repository.delete(2L))
+        assertFalse(repository.delete(3L))
     }
 }

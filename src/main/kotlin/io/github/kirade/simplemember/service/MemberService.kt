@@ -2,11 +2,13 @@ package io.github.kirade.simplemember.service
 
 import io.github.kirade.simplemember.domain.Member
 import io.github.kirade.simplemember.repository.MemberRepository
+import jakarta.transaction.Transactional
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 
 @Service
+@Transactional
 class MemberService (private val repository: MemberRepository) {
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -16,7 +18,7 @@ class MemberService (private val repository: MemberRepository) {
         return repository.create(Member(id=null, name=member.name))
     }
 
-    fun getMember(memberId: ULong): Member? {
+    fun getMember(memberId: Long): Member? {
         logger.info("Get member $memberId")
 
         return repository.findById(memberId)
@@ -28,7 +30,7 @@ class MemberService (private val repository: MemberRepository) {
         return repository.findAll()
     }
 
-    fun updateMember(memberId: ULong, member: Member): Member {
+    fun updateMember(memberId: Long, member: Member): Member {
         val foundMember = repository.findById(memberId) ?: throw IllegalStateException("Member with id $memberId not found")
         logger.info("Update member `${foundMember.name}` -> ${member.name}")
 
@@ -38,7 +40,7 @@ class MemberService (private val repository: MemberRepository) {
         return updatedMember
     }
 
-    fun deleteMember(memberId: ULong): Boolean {
+    fun deleteMember(memberId: Long): Boolean {
         logger.info("Delete member `${memberId}`")
 
         return repository.delete(memberId)

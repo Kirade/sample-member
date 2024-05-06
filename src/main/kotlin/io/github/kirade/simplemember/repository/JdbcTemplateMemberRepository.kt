@@ -19,12 +19,12 @@ class JdbcTemplateMemberRepository(dataSource: DataSource): MemberRepository {
         parameters["name"] = member.name
 
         val key = jdbcInsert.executeAndReturnKey(MapSqlParameterSource(parameters))
-        member.id = key.toLong().toULong()
+        member.id = key.toLong()
         return member
     }
 
-    override fun findById(id: ULong): Member? {
-        val result: List<Member> = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id.toLong())
+    override fun findById(id: Long): Member? {
+        val result: List<Member> = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id)
         return result.firstOrNull()
     }
 
@@ -42,8 +42,8 @@ class JdbcTemplateMemberRepository(dataSource: DataSource): MemberRepository {
         return if (updateCount > 0) member else throw IllegalStateException("Update Failed")
     }
 
-    override fun delete(id: ULong): Boolean {
-        val updatedCount = jdbcTemplate.update("delete from member where id = ?", id.toLong())
+    override fun delete(id: Long): Boolean {
+        val updatedCount = jdbcTemplate.update("delete from member where id = ?", id)
         return updatedCount > 0
     }
 
@@ -54,7 +54,7 @@ class JdbcTemplateMemberRepository(dataSource: DataSource): MemberRepository {
     private fun memberRowMapper(): RowMapper<Member> {
         return RowMapper<Member> { rs, rowNum ->
             Member(
-                id=rs.getLong("id").toULong(),
+                id=rs.getLong("id"),
                 name=rs.getString("name"),
             )
         }

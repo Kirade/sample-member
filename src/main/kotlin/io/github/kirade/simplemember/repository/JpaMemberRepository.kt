@@ -4,7 +4,7 @@ import io.github.kirade.simplemember.domain.Member
 import jakarta.persistence.EntityManager
 import java.lang.IllegalStateException
 
-class JpaMemberRepository(private val em:EntityManager): MemberRepository {
+class JpaMemberRepository(private val em: EntityManager): MemberRepository {
 
     override fun create(member: Member): Member {
         em.persist(member)

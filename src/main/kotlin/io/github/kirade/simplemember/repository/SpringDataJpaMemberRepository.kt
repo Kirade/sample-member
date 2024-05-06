@@ -2,7 +2,6 @@ package io.github.kirade.simplemember.repository
 
 import io.github.kirade.simplemember.domain.Member
 import jakarta.persistence.EntityManager
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 

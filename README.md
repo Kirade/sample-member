@@ -3,3 +3,5 @@
 - MVC 기본 패턴에 대한 이해
 - DB 접근기술 ( JDBC, JDBC Template, JPA, Spring Data JPA ) 이해
 - 테스트 작성법 이해
+
+기간: 2023.04.14 ~ 2023.05.07
